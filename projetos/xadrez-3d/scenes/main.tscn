@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/board.gd" id="1_board"]
+
+[sub_resource type="Environment" id="Environment_env"]
+background_mode = 1
+background_color = Color(0.0784314, 0.0862745, 0.117647, 1)
+tonemap_mode = 2
+ssao_enabled = false
+ssil_enabled = false
+sdfgi_enabled = false
+glow_enabled = false
+fog_enabled = false
+volumetric_fog_enabled = false
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_board")
+
+[node name="Squares" type="Node3D" parent="."]
+
+[node name="Pieces" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+keep_aspect = 1
+fov = 50.0
+transform = Transform3D(1, 0, 0, 0, 0.6467, -0.7626, 0, 0.7626, 0.6467, 0, 9.9, 8.4)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, -0.57735, 0.57735, -0.57735, 0.408248, 0.816497, 0.408248, 6, 10, 5)
+light_energy = 1.05
+shadow_enabled = true
+shadow_bias = 0.04
+shadow_normal_bias = 0.02
+shadow_blur = 0.6
+directional_shadow_mode = 1
+directional_shadow_blend_splits = false
+directional_shadow_max_distance = 24.0
+
+[node name="Fill" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.6406, 0, 0.768, 0.4677, 0.7931, 0.3901, -0.609, 0.609, -0.508, -6, 6, -5)
+light_energy = 0.35
+shadow_enabled = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_env")
