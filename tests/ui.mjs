@@ -421,6 +421,55 @@ try {
   step('nenhum erro de JavaScript no console');
 
   dom.window.close();
+
+  /* ---- iframe/preview com localStorage bloqueado não pode travar o app ---- */
+  await api('/api/logout', { method: 'POST' });
+  const blockedErrors = [];
+  const blockedConsole = new VirtualConsole();
+  blockedConsole.on('jsdomError', (err) => {
+    if (!String(err?.message || '').includes('Could not parse CSS')) blockedErrors.push(err?.stack || String(err));
+  });
+  const blocked = await JSDOM.fromURL(BASE, {
+    runScripts: 'dangerously',
+    resources: 'usable',
+    pretendToBeVisual: true,
+    virtualConsole: blockedConsole,
+    beforeParse(window) {
+      Object.defineProperty(window, 'localStorage', {
+        configurable: true,
+        get() {
+          throw new window.DOMException('The operation is insecure.', 'SecurityError');
+        },
+      });
+      window.fetch = proxyFetch;
+      window.EventSource = createEventSourceClass(window);
+      window.matchMedia = () => ({
+        matches: false,
+        addEventListener() {},
+        removeEventListener() {},
+        addListener() {},
+        removeListener() {},
+      });
+      window.Element.prototype.scrollTo = function scrollTo() {};
+      window.Element.prototype.scrollIntoView = function scrollIntoView() {};
+      window.URL.createObjectURL = () => 'blob:mock';
+      window.URL.revokeObjectURL = () => {};
+      window.addEventListener('error', (event) => blockedErrors.push(event.error?.stack || event.message));
+      window.addEventListener('unhandledrejection', (event) => blockedErrors.push(event.reason?.stack || String(event.reason)));
+    },
+  });
+  const bd = blocked.window.document;
+  await waitFor(() => bd.querySelector('#loginView:not([hidden])'), 'login renderizar sem localStorage', 12000);
+  await waitFor(() => !bd.querySelector('#boot'), 'overlay de boot sair mesmo sem storage', 8000);
+  assert(!bd.querySelector('#loginView').hidden, 'tela de login visível sem storage');
+  bd.querySelector('#demoLoginBtn').click();
+  await waitFor(() => bd.querySelectorAll('#chatList .chat-item').length >= 6, 'lista de conversas sem storage', 15000);
+  await waitFor(() => !bd.querySelector('#connDot').classList.contains('off'), 'SSE autenticado por token', 12000);
+  blocked.window.close();
+  const blockedAfter = blockedErrors.filter((e) => !String(e).includes('Not implemented'));
+  assert(blockedAfter.length === 0, `erros com localStorage bloqueado:\n${blockedAfter.join('\n')}`);
+  step('app abre e conecta com localStorage bloqueado (preview em iframe)');
+
   console.log('\n  ✅ Testes de interface passaram.\n');
 } catch (error) {
   console.error('\n  ❌', error.message, '\n');
