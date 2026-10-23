@@ -1,0 +1,25 @@
+{
+  "name": "whatsapp-web-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WhatsApp Web funcional — chat em tempo real, recibos de leitura, mídia, áudio e presença.",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node tests/smoke.mjs",
+    "test:ui": "node tests/ui.mjs",
+    "test:all": "node tests/smoke.mjs && node tests/ui.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.1"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3"
+  }
+}
