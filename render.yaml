@@ -1,0 +1,25 @@
+# Blueprint do Render — https://render.com (plano free)
+# No painel: New + → Blueprint → escolha este repositório.
+services:
+  - type: web
+    name: whatsapp-web-demo
+    runtime: node
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm ci --omit=dev
+    startCommand: node server/index.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      # O plano free do Render não tem disco persistente: os dados voltam ao
+      # seed a cada deploy/restart. Para persistir, use um disco pago e aponte
+      # DATA_DIR/UPLOAD_DIR para o ponto de montagem (ex.: /var/data).
+      - key: DATA_DIR
+        value: /opt/render/project/src/data
+      - key: UPLOAD_DIR
+        value: /opt/render/project/src/uploads

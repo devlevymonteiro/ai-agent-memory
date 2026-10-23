@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#111b21" />
+    <meta name="description" content="WhatsApp Web funcional: conversas em tempo real, recibos de leitura, áudio, fotos, grupos e busca — uma demonstração completa." />
+    <title>WhatsApp Web — Demo</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="i-whatsapp" viewBox="0 0 32 32">
+        <path fill="currentColor" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.7c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 1 1.1-3.9-.3-.4A10.5 10.5 0 0 1 5.4 16C5.4 10.2 10.2 5.4 16 5.4S26.6 10.2 26.6 16 21.8 26.6 16 26.6z"/>
+        <path fill="currentColor" d="M12.3 9.8c-.3-.6-.6-.6-.9-.6h-.7c-.2 0-.7.1-1 .5-.4.4-1.4 1.4-1.4 3.3 0 1.9 1.4 3.8 1.6 4 .2.3 2.7 4.4 6.7 6 .9.4 1.7.7 2.3.8 1 .3 1.9.3 2.6.2.8-.1 2.5-1 2.9-2.1.4-1 .4-1.9.3-2.1-.1-.2-.4-.3-.8-.5l-2.9-1.4c-.4-.2-.7-.2-1 .2-.3.4-1.1 1.4-1.4 1.7-.3.3-.5.3-.9.1-.4-.2-1.8-.7-3.4-2.1-1.3-1.1-2.1-2.5-2.4-2.9-.2-.4 0-.6.2-.8l.6-.8c.2-.2.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.3-3z"/>
+      </symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></symbol>
+      <symbol id="i-archive" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="19" r="1.4"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol>
+      <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></symbol>
+      <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+      <symbol id="i-checks" viewBox="0 0 24 24"><polyline points="1.5 12.5 5.5 16.5 14.5 6.5"/><polyline points="8.5 16.5 9 17 22 4"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-bell-off" viewBox="0 0 24 24"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8a6 6 0 0 0-9.33-5"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 1 0 1"/><line x1="2" y1="2" x2="22" y2="22"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol>
+      <symbol id="i-reply" viewBox="0 0 24 24"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+      <symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+      <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+    </svg>
+
+    <div id="boot" class="boot">
+      <div class="boot-logo"><svg class="icon"><use href="#i-whatsapp"/></svg></div>
+      <div class="spinner"></div>
+      <p>Conectando ao WhatsApp Web…</p>
+    </div>
+
+    <!-- ============================ LOGIN ============================ -->
+    <section id="loginView" class="login" hidden>
+      <div class="login-hero">
+        <div class="hero-glow"></div>
+        <header class="hero-top">
+          <div class="brand">
+            <span class="brand-badge"><svg class="icon"><use href="#i-whatsapp"/></svg></span>
+            <span class="brand-name">WhatsApp Web</span>
+          </div>
+          <span class="demo-pill">DEMONSTRAÇÃO</span>
+        </header>
+
+        <div class="hero-copy">
+          <h1>Converse com quem importa,<br /><span>em tempo real.</span></h1>
+          <p>
+            Uma demonstração completa e funcional do WhatsApp Web: mensagens instantâneas, recibos de leitura,
+            presença online, áudios, fotos e grupos — tudo sincronizado entre abas e dispositivos.
+          </p>
+          <ul class="hero-features">
+            <li><span>⚡</span> Mensagens sincronizadas via tempo real (SSE)</li>
+            <li><span>✓✓</span> Recibos de entrega e leitura</li>
+            <li><span>🎙</span> Mensagens de voz, fotos, vídeos e documentos</li>
+            <li><span>👥</span> Grupos, busca, favoritos e arquivadas</li>
+          </ul>
+        </div>
+
+        <div class="phone-mock" aria-hidden="true">
+          <div class="phone-notch"></div>
+          <div class="phone-head">
+            <span class="mini-avatar">AB</span>
+            <div><strong>Ana Beatriz</strong><small><i class="mini-dot"></i> online</small></div>
+          </div>
+          <div class="phone-chat">
+            <div class="mini-bubble in">Oi, Alex! Conseguiu revisar o layout novo? 😊<time>10:42</time></div>
+            <div class="mini-bubble out">Consegui! Ficou ótimo, só ajustei uns espaçamentos 🚀<time>10:43 <svg class="icon"><use href="#i-checks"/></svg></time></div>
+            <div class="mini-bubble in">Perfeito! Café amanhã às 10h? ☕<time>10:43</time></div>
+            <div class="mini-bubble out">Combinado! Te encontro lá 😄<time>10:44 <svg class="icon"><use href="#i-checks"/></svg></time></div>
+            <div class="mini-typing"><i></i><i></i><i></i></div>
+          </div>
+          <div class="phone-input">Digite uma mensagem</div>
+        </div>
+
+        <footer class="hero-foot">
+          <svg class="icon"><use href="#i-lock"/></svg>
+          Demonstração independente · não conectada à rede do WhatsApp
+        </footer>
+      </div>
+
+      <div class="login-panel">
+        <div class="login-card">
+          <div class="login-logo"><svg class="icon"><use href="#i-whatsapp"/></svg></div>
+          <h2>Entrar no WhatsApp Web</h2>
+          <p class="muted">Use a conta demo com conversas prontas ou entre com seu número.</p>
+
+          <button id="demoLoginBtn" class="btn btn-primary btn-lg btn-block" type="button">
+            <svg class="icon"><use href="#i-whatsapp"/></svg>
+            Entrar com a conta demo
+          </button>
+          <div class="divider"><span>ou entre com seu telefone</span></div>
+
+          <form id="loginForm" autocomplete="on" novalidate>
+            <label class="field">
+              <span>Telefone</span>
+              <input id="loginPhone" name="phone" type="tel" inputmode="tel" placeholder="+55 (61) 99999-0001" autocomplete="tel" required />
+            </label>
+            <label class="field">
+              <span>Seu nome <em>(necessário só na primeira vez)</em></span>
+              <input id="loginName" name="name" type="text" placeholder="Como quer ser chamado(a)" autocomplete="name" maxlength="40" />
+            </label>
+            <p id="loginError" class="form-error" role="alert"></p>
+            <button class="btn btn-secondary btn-block" type="submit" id="loginSubmit">Entrar / criar conta</button>
+          </form>
+
+          <p class="login-foot">
+            <svg class="icon"><use href="#i-shield"/></svg>
+            Seus dados ficam salvos apenas neste servidor de demonstração.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ APP ============================ -->
+    <div id="appView" class="app" hidden>
+      <nav class="rail" aria-label="Navegação principal">
+        <button class="rail-btn active" data-rail="chats" title="Conversas" aria-label="Conversas">
+          <svg class="icon"><use href="#i-chat"/></svg>
+          <span class="rail-badge" id="railBadge" hidden></span>
+        </button>
+        <button class="rail-btn" data-rail="pinned" title="Favoritas" aria-label="Favoritas">
+          <svg class="icon"><use href="#i-star"/></svg>
+        </button>
+        <button class="rail-btn" data-rail="archived" title="Arquivadas" aria-label="Arquivadas">
+          <svg class="icon"><use href="#i-archive"/></svg>
+        </button>
+        <div class="rail-sep"></div>
+        <button class="rail-btn" data-rail="new" title="Nova conversa" aria-label="Nova conversa">
+          <svg class="icon"><use href="#i-plus"/></svg>
+        </button>
+        <div class="rail-spacer"></div>
+        <button class="rail-btn" data-action="open-settings" title="Configurações" aria-label="Configurações">
+          <svg class="icon"><use href="#i-gear"/></svg>
+        </button>
+        <button class="rail-avatar" data-action="open-profile" title="Meu perfil" aria-label="Meu perfil">
+          <span class="avatar" id="railAvatar"></span>
+        </button>
+      </nav>
+
+      <aside class="sidebar" id="sidebar">
+        <header class="sidebar-head">
+          <div class="sidebar-title">
+            <h1>WhatsApp</h1>
+            <span class="demo-tag">DEMO</span>
+            <div class="head-actions">
+              <button class="icon-btn" data-action="new-group" title="Novo grupo" aria-label="Novo grupo">
+                <svg class="icon"><use href="#i-users"/></svg>
+              </button>
+              <button class="icon-btn" data-action="new-chat" title="Nova conversa" aria-label="Nova conversa">
+                <svg class="icon"><use href="#i-plus"/></svg>
+              </button>
+              <button class="icon-btn" data-action="sidebar-menu" title="Menu" aria-label="Menu">
+                <svg class="icon"><use href="#i-more"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="search-wrap">
+            <svg class="icon search-icon"><use href="#i-search"/></svg>
+            <input id="searchInput" type="search" placeholder="Pesquisar ou começar uma nova conversa" autocomplete="off" aria-label="Pesquisar" />
+            <button id="searchClear" class="icon-btn search-clear" hidden aria-label="Limpar pesquisa">
+              <svg class="icon"><use href="#i-x"/></svg>
+            </button>
+          </div>
+
+          <div class="chips" id="filterChips">
+            <button class="chip active" data-filter="all">Todas</button>
+            <button class="chip" data-filter="unread">Não lidas</button>
+            <button class="chip" data-filter="pinned">Favoritas</button>
+            <button class="chip" data-filter="archived">Arquivadas</button>
+          </div>
+        </header>
+
+        <div id="searchResults" class="search-results" hidden></div>
+        <div id="chatList" class="chat-list" role="list"></div>
+        <div id="chatListEmpty" class="list-empty" hidden>
+          <p>Nenhuma conversa por aqui.</p>
+          <button class="btn btn-ghost" data-action="new-chat">Começar uma conversa</button>
+        </div>
+
+        <footer class="sidebar-foot">
+          <span id="connDot" class="conn-dot"></span>
+          <span id="connLabel">Conectado</span>
+          <span class="foot-sep">·</span>
+          <span id="footMe" class="foot-me"></span>
+        </footer>
+      </aside>
+
+      <main class="chat-pane" id="chatPane">
+        <section id="emptyState" class="empty-state">
+          <div class="empty-art">
+            <span class="empty-ring"></span>
+            <svg class="icon"><use href="#i-whatsapp"/></svg>
+          </div>
+          <h2>WhatsApp Web</h2>
+          <p>Envie e receba mensagens em tempo real. Selecione uma conversa ao lado para começar.</p>
+          <div class="empty-hints">
+            <span><svg class="icon"><use href="#i-lock"/></svg> Conexão local segura</span>
+            <span><svg class="icon"><use href="#i-shield"/></svg> Demonstração funcional</span>
+          </div>
+        </section>
+
+        <section id="chatView" class="chat-view" hidden>
+          <header class="chat-head">
+            <button class="icon-btn back-btn" data-action="back" aria-label="Voltar">
+              <svg class="icon"><use href="#i-back"/></svg>
+            </button>
+            <button class="chat-id" data-action="open-info" aria-label="Dados da conversa">
+              <span class="avatar" id="chatAvatar"></span>
+              <span class="chat-id-text">
+                <strong id="chatTitle"></strong>
+                <small id="chatSubtitle"></small>
+              </span>
+            </button>
+            <div class="chat-actions">
+              <button class="icon-btn" data-action="call-audio" title="Chamada de voz" aria-label="Chamada de voz">
+                <svg class="icon"><use href="#i-phone"/></svg>
+              </button>
+              <button class="icon-btn" data-action="call-video" title="Chamada de vídeo" aria-label="Chamada de vídeo">
+                <svg class="icon"><use href="#i-video"/></svg>
+              </button>
+              <button class="icon-btn" data-action="chat-search" title="Pesquisar na conversa" aria-label="Pesquisar na conversa">
+                <svg class="icon"><use href="#i-search"/></svg>
+              </button>
+              <button class="icon-btn" data-action="open-info" title="Menu da conversa" aria-label="Dados da conversa">
+                <svg class="icon"><use href="#i-more"/></svg>
+              </button>
+            </div>
+          </header>
+
+          <div class="chat-search-bar" id="chatSearchBar" hidden>
+            <svg class="icon"><use href="#i-search"/></svg>
+            <input id="chatSearchInput" placeholder="Pesquisar na conversa" autocomplete="off" />
+            <span id="chatSearchCount"></span>
+            <button class="icon-btn" data-action="chat-search-close" aria-label="Fechar pesquisa">
+              <svg class="icon"><use href="#i-x"/></svg>
+            </button>
+          </div>
+
+          <div class="messages" id="messages" aria-live="polite"></div>
+          <button id="scrollBottom" class="scroll-bottom" hidden aria-label="Ir para o fim">
+            <svg class="icon"><use href="#i-chevron-down"/></svg>
+            <span id="newMsgBadge" class="new-msg-badge" hidden></span>
+          </button>
+
+          <div class="reply-bar" id="replyBar" hidden>
+            <div class="reply-card">
+              <span class="reply-name"></span>
+              <span class="reply-text"></span>
+            </div>
+            <button class="icon-btn" data-action="cancel-reply" aria-label="Cancelar resposta">
+              <svg class="icon"><use href="#i-x"/></svg>
+            </button>
+          </div>
+
+          <div class="record-bar" id="recordBar" hidden>
+            <span class="rec-dot"></span>
+            <span class="rec-time" id="recordTime">0:00</span>
+            <span class="rec-hint">Gravando áudio…</span>
+            <button class="icon-btn danger" data-action="cancel-recording" title="Descartar" aria-label="Descartar gravação">
+              <svg class="icon"><use href="#i-trash"/></svg>
+            </button>
+            <button class="icon-btn send" data-action="send-recording" title="Enviar áudio" aria-label="Enviar áudio">
+              <svg class="icon"><use href="#i-send"/></svg>
+            </button>
+          </div>
+
+          <div class="attach-menu" id="attachMenu" hidden>
+            <button data-attach="image"><span class="attach-ico image"><svg class="icon"><use href="#i-image"/></svg></span> Fotos e vídeos</button>
+            <button data-attach="document"><span class="attach-ico doc"><svg class="icon"><use href="#i-file"/></svg></span> Documento</button>
+            <button data-attach="camera"><span class="attach-ico cam"><svg class="icon"><use href="#i-camera"/></svg></span> Câmera</button>
+          </div>
+
+          <div class="emoji-picker" id="emojiPicker" hidden></div>
+
+          <footer class="composer" id="composer">
+            <button class="icon-btn" data-action="toggle-emoji" title="Emojis" aria-label="Emojis">
+              <svg class="icon"><use href="#i-smile"/></svg>
+            </button>
+            <button class="icon-btn" data-action="toggle-attach" title="Anexar" aria-label="Anexar arquivo">
+              <svg class="icon"><use href="#i-clip"/></svg>
+            </button>
+            <div class="composer-input">
+              <textarea id="messageInput" rows="1" placeholder="Digite uma mensagem" maxlength="4096" aria-label="Digite uma mensagem"></textarea>
+            </div>
+            <button class="icon-btn mic-btn" id="micBtn" data-action="start-recording" title="Gravar áudio" aria-label="Gravar áudio">
+              <svg class="icon"><use href="#i-mic"/></svg>
+            </button>
+            <button class="icon-btn send-btn" id="sendBtn" data-action="send" title="Enviar" aria-label="Enviar mensagem" hidden>
+              <svg class="icon"><use href="#i-send"/></svg>
+            </button>
+          </footer>
+        </section>
+      </main>
+    </div>
+
+    <div id="drawerBackdrop" class="drawer-backdrop" hidden></div>
+    <div id="drawerRoot"></div>
+    <div id="modalRoot"></div>
+    <div id="ctxMenu" class="ctx-menu" hidden role="menu"></div>
+    <div id="reactionBar" class="reaction-bar" hidden></div>
+    <div id="toast" class="toast" hidden role="status"></div>
+
+    <div id="lightbox" class="lightbox" hidden>
+      <button class="lb-close" data-action="lb-close" aria-label="Fechar">
+        <svg class="icon"><use href="#i-x"/></svg>
+      </button>
+      <div class="lb-stage" id="lbStage"></div>
+      <a class="lb-download" id="lbDownload" download target="_blank" rel="noopener">
+        <svg class="icon"><use href="#i-download"/></svg> Baixar
+      </a>
+    </div>
+
+    <div id="callOverlay" class="call-overlay" hidden>
+      <div class="call-bg"></div>
+      <div class="call-ui">
+        <span class="call-demo">chamada de demonstração</span>
+        <span class="avatar xl" id="callAvatar"></span>
+        <h2 id="callName">Contato</h2>
+        <p id="callStatus">Chamando…</p>
+        <div class="call-controls">
+          <button class="call-btn" id="callMute" title="Microfone" aria-label="Microfone">
+            <svg class="icon"><use href="#i-mic"/></svg>
+          </button>
+          <button class="call-btn end" id="callEnd" title="Encerrar" aria-label="Encerrar chamada">
+            <svg class="icon"><use href="#i-phone"/></svg>
+          </button>
+          <button class="call-btn" id="callCam" title="Câmera" aria-label="Câmera">
+            <svg class="icon"><use href="#i-video"/></svg>
+          </button>
+        </div>
+        <div class="call-controls-labels"><span>mudo</span><span>encerrar</span><span>câmera</span></div>
+      </div>
+    </div>
+
+    <div id="dragOverlay" class="drag-overlay" hidden>
+      <div class="drag-box">
+        <svg class="icon"><use href="#i-image"/></svg>
+        <strong>Solte para enviar</strong>
+        <span>Fotos, vídeos e documentos</span>
+      </div>
+    </div>
+
+    <input type="file" id="fileInput" hidden multiple />
+    <script src="/app.js" defer></script>
+  </body>
+</html>
