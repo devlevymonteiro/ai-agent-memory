@@ -3,3 +3,10 @@ data/
 uploads/
 *.log
 .DS_Store
+
+# Toolchain Android baixado (grande) e intermediarios de build — nao versionar
+tools/.toolchain/
+tools/icon_preview.png
+android/.build/
+android/signing.key
+android/signing.crt
